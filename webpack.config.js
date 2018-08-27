@@ -20,7 +20,12 @@ module.exports = {
           {
             test: [ /\.vert$/, /\.frag$/ ],
             use: 'raw-loader'
-          }
+          },
+					{
+						test: /\.js$/,
+						exclude: /node_modules/,
+          	use: ['babel-loader'],
+        	}
         ]
     },
 
