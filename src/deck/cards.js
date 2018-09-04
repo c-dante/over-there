@@ -43,3 +43,4 @@ export default [
 		}
 	].map(x => character(x)),
 ];
+

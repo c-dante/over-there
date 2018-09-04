@@ -6,10 +6,8 @@ const genDeck = ({ size = 20} = {}) => new Array(size).fill(undefined).map(
 );
 
 // Rearrange every child to be centered to width/height
-const centerChildren = (container, dx, dy) => container.list.forEach(obj => obj.setPosition(
-	obj.x - dx,
-	obj.y - dy,
-));
+const move = (dx, dy) => obj => obj.setPosition(obj.x - dx, obj.y - dy);
+const centerChildren = (container, dx, dy) => container.list.forEach(move(dx, dy));
 
 // Makes a card
 const makeCard = ({
@@ -20,9 +18,9 @@ const makeCard = ({
 	x = 0, y = 0, width = 300, height = 450,
 	// Ugh
 	textStyle = {
-		color: '#000',
-		stroke: '#000',
-		strokeThickness: 2,
+		color: '#FFF',
+		stroke: '#FFF',
+		strokeThickness: 1,
 		fontSize: '24px',
 		wordWrap: { width },
 	},
@@ -32,11 +30,15 @@ const makeCard = ({
 	// Render the rect
 	const gfx = scene.add.graphics({
 		lineStyle: { color: 0x0000FF, width: 5 },
-		fillStyle: { color: 0xFF00FF },
+		fillStyle: { color: 0x333333 },
 	});
 	gfx.fillRectShape(rect);
 	gfx.strokeRectShape(rect);
-	gfx.setInteractive(rect, Geom.Rectangle.Contains);
+	const hilight = ({ color = 0xFF0000 } = {}) => {
+		gfx.lineStyle(5, color)
+		gfx.strokeRectShape(rect);
+	};
+	const unHilight = () => hilight({ color: 0x0000FF });
 
 	// Render the text
 	const titleTxt = scene.add.text(0, 0, title, textStyle);
@@ -45,11 +47,24 @@ const makeCard = ({
 	// Wrap it all into a container
 	const card = scene.add.container(x, y, [ gfx, titleTxt, descTxt ]);
 
-	// Center it maybe?
+	// Drew it all relative to top left, shift to center
 	centerChildren(card, width / 2, height / 2);
 
+	// Add the data to the container
+	card.setData('title', title);
+	card.setData('desc', desc);
+	card.setData('actions', { hilight, unHilight });
+
+	// Interactive via the rect -- also need to center the rect
+	const hitRect = Geom.Rectangle.Clone(rect);
+	move(width / 2, height / 2)(hitRect);
+	card.setInteractive(hitRect, Geom.Rectangle.Contains);
+
 	// Just give it all back -- card is the important thing
-	return { card, gfx, rect, titleTxt, descTxt };
+	return {
+		card, gfx, rect, titleTxt, descTxt,
+		hilight, unHilight,
+	};
 };
 
 const rand = n => (Math.random() > 0.5 ? 1 : -1) * Math.random() * n;
@@ -60,9 +75,8 @@ export class RootScene extends Scene {
 	}
 
 	create() {
-		console.log(this);
 		// Build the deck
-		this.deck = genDeck().map((card, i) => {
+		this.deck = genDeck({ size: 20 }).map((card, i) => {
 			const c = makeCard({
 				...card,
 				scene: this,
@@ -73,21 +87,35 @@ export class RootScene extends Scene {
 				this.sys.game.config.width / 2 + rand(20),
 				this.sys.game.config.height / 2 + rand(20),
 			);
-			// c.card.data.set('card', card);
+
+			return c;
 		});
 
-		//		this.input.on('pointerdown', (ptr, obj) => {
-		//			console.log(ptr, obj);
-		//		});
+		this.input.on('pointerdown', (ptr, obj) => {
+			this.tweens.add({
+				x: ptr.x,
+				y: ptr.y,
+				duration: 300,
+				targets: this.deck[0].card,
+			});
+		});
+
+		this.input.on('pointerover', (ptr, objs) => {
+			objs.forEach(c => {
+				c.getData('actions').hilight();
+			})
+		});
+
+		this.input.on('pointerout', (ptr, objs) => {
+			objs.forEach(c => {
+				c.getData('actions').unHilight();
+			})
+		});
 	}
 
 	update() {
+		// Track which card is under the mouse (?)
 		const { worldX, worldY } = this.input.activePointer;
-		// this.c.card.setPosition(worldX, worldY);
 	}
 }
-
-export default (phaser) => {
-	phaser.scene.start('RootScene');
-};
 
