@@ -1,5 +1,6 @@
 import { Scene, Geom } from 'phaser';
 import cards from './deck/cards';
+import { drag } from './util';
 
 const genDeck = ({ size = 20} = {}) => new Array(size).fill(undefined).map(
 	(_, i) => cards[Math.floor(Math.random() * cards.length) % cards.length]
@@ -91,25 +92,38 @@ export class RootScene extends Scene {
 			return c;
 		});
 
-		this.input.on('pointerdown', (ptr, obj) => {
-			this.tweens.add({
-				x: ptr.x,
-				y: ptr.y,
-				duration: 300,
-				targets: this.deck[0].card,
+		this.input.on('pointerdown', (ptr, objs) => {
+			objs.forEach(obj => {
+				if (!this.data.has('drag')) {
+					this.data.set('drag', {
+						offsetX: ptr.x - obj.x, offsetY: ptr.y - obj.y, obj
+					});
+				}
+				this.children.bringToTop(obj);
 			});
+		});
+
+		this.input.on('pointerup', (ptr, objs) => {
+				this.data.remove('drag');
 		});
 
 		this.input.on('pointerover', (ptr, objs) => {
 			objs.forEach(c => {
 				c.getData('actions').hilight();
-			})
+			});
 		});
 
 		this.input.on('pointerout', (ptr, objs) => {
 			objs.forEach(c => {
 				c.getData('actions').unHilight();
-			})
+			});
+		});
+
+		this.input.on('pointermove', (ptr, objs) => {
+			if (this.data.has('drag')) {
+				const d = this.data.get('drag');
+				d.obj.setPosition(ptr.x - d.offsetX, ptr.y - d.offsetY);
+			}
 		});
 	}
 
