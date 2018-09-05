@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "I've always wanted to head over there",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack-cli --mode production",
     "start": "webpack-dev-server --mode development"
   },
   "author": "Dante Federici <c.dante.federici@gmail.com> (dante.codes)",
