@@ -1,14 +1,18 @@
-# System and IDE files
-Thumbs.db
+# Build Artifacts
+dist
+
+# Dependencies
+node_modules
+
+# IDE
+.tmp/
 .DS_Store
-.idea
-*.suo
-*.sublime-project
-*.sublime-workspace
+.idea/
+*.sublime-*
 
-# Vendors
-node_modules/
+# Generated / Data files
+*.meta
+*.log
 
-# Build
-build/
-/npm-debug.log
+# Optional REPL history
+.node_repl_history

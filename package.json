@@ -6,19 +6,42 @@
     "build": "webpack-cli --mode production",
     "start": "webpack-dev-server --mode development"
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "author": "Dante Federici <c.dante.federici@gmail.com> (dante.codes)",
   "license": "MIT",
-  "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+  "bugs": {
+    "url": "https://github.com/c-dante/over-there/issues"
+  },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-lodash": "^3.3.4",
+    "browserslist": "^4.3.4",
     "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss": "^7.0.5",
+    "postcss-import": "^12.0.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.0",
+    "postcss-preset-env": "^6.3.1",
+    "pug": "^2.0.3",
+    "pug-loader": "^2.4.0",
     "raw-loader": "^0.5.1",
-    "webpack": "^4.0.0",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.7"
+    "script-ext-html-webpack-plugin": "^2.0.1",
+    "style-loader": "^0.23.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
     "phaser": "^3.12.0"
