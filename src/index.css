@@ -1,16 +1,20 @@
-/*	 Import: https://github.com/postcss/postcss-import */
-@import "./import.css";
+@import "./mainMenu/index.css";
 
-/* Nesting: https://github.com/postcss/postcss-nested */
-.outer {
-	color: blue;
-
-	.inner {
-		color: red;
-	}
-
-	.sibling {
-		color: green;
-	}
+body {
+	margin: 0;
+	padding: 0;
 }
 
+.ui {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	pointer-events: none;
+
+	input, button {
+		pointer-events: auto;
+	}
+}

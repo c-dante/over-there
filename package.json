@@ -44,6 +44,7 @@
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
-    "phaser": "^3.12.0"
+    "phaser": "^3.12.0",
+    "preact": "^8.3.1"
   }
 }

@@ -1,6 +1,8 @@
 import 'phaser';
+import './index.css';
 
 import { RootScene } from './root';
+import ui from './ui';
 
 const config = {
 	type: Phaser.AUTO,
@@ -11,3 +13,6 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+
+// Run the UI
+ui(document.body, game);
