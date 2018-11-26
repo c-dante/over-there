@@ -1,3 +1,5 @@
+[@SEE Just the stats, Ma'am](https://hackmd.io/s/ryiNjY5Ym)
+
 ### Overview of gameplay
 ```mermaid
 graph LR
