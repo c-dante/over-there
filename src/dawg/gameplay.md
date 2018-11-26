@@ -49,6 +49,7 @@ graph LR
   Done[Text facing you];
   Fail[Text facing away];
 ```
+[View](https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgQVs_Pz9dIC0tPiBSb2xsO1xuICBSb2xse1JvbGwgYSBENn07XG4gIFJvbGwgLS1QYXNzLS0-IERvbmU7XG4gIFJvbGwgLS1GYWlsLS0-IEZhaWxcblxuICBEb25lW1RleHQgZmFjaW5nIHlvdV07XG4gIEZhaWxbVGV4dCBmYWNpbmcgYXdheV07IiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifX0)
 
 ### Artifact Card
 No conditions. If you play it, it happens.
