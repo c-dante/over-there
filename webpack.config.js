@@ -124,9 +124,9 @@ module.exports = ({
 		},
 		module: {
 			rules: [
-				// Shaders
+				// Shaders, CSV, anything raw.
 				{
-					test: [ /\.vert$/, /\.frag$/ ],
+					test: [ /\.vert$/, /\.frag$/, /\.csv$/ ],
 					use: 'raw-loader'
 				},
 				// templates

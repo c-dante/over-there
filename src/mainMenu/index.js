@@ -1,6 +1,4 @@
-import fp from 'lodash/fp';
 import { h } from 'preact';
-
 
 const render = (props, state, context) => {
 	console.debug({ props, state, context });
