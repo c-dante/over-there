@@ -65,6 +65,10 @@ const buildPlugins = [
 		title: 'Development Title',
 		chunksSortMode: 'dependency',
 		excludeChunks: [],
+		meta: {
+			'viewport': 'width=device-width, initial-scale=1',
+			'mobile-web-app-capable': 'yes',
+		},
 	}),
 	new ScriptExtHtmlWebpackPlugin({
 		sync: [
@@ -168,10 +172,12 @@ module.exports = ({
 		},
 		output: {
 			filename: production ? '[name].[contenthash].bundle.js' : '[name].bundle.js',
+			publicPath: './',
 			path: path.resolve(__dirname, 'dist'),
 		},
 		// Development settings
 		devServer: {
+			publicPath: '/',
 			contentBase: './src',
 			hot: true,
 			// This is configured to allow client side cors request to some other server
